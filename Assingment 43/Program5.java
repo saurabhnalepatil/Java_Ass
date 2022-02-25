@@ -1,0 +1,92 @@
+/*
+Write a program which display addition of digits of element from singly 
+linear linked list. 
+Function Prototype :int SumDigit( PNODE Head); 
+Input linked list : |110|->|230|->|20|->|240|->|640| 
+Output : 2 5 2 6 10
+*/
+
+import java.util.*;
+
+class LinkedList
+{
+	Node head; 
+	int size;
+
+	class Node
+	{
+		int data;
+		Node next;
+		Node(int d) {data = d; next = null; }
+	}
+
+	public void InsertLast(int new_data)
+	{
+		Node new_node = new Node(new_data);
+
+		if (head == null)
+		{
+			head = new Node(new_data);
+			return;
+		}
+		new_node.next = null;
+
+		Node last = head;
+		while (last.next != null)
+			last = last.next;
+
+		last.next = new_node;
+		size++;
+		return;
+	}
+	public void printList()
+	{
+		Node tnode = head;
+		while (tnode != null)
+		{
+			System.out.print("|"+tnode.data+"|-> ");
+			tnode = tnode.next;
+		}
+		System.out.println("");
+	}
+	public void SumDigit()
+	{
+		Node tnode = head;
+		int iDigit = 0,iSum = 0;
+		while(tnode != null)
+		{
+			int temp = tnode.data;
+			while(tnode.data != 0)
+			{
+				iDigit = tnode.data % 10;
+				iSum = iSum + iDigit;
+				tnode.data = tnode.data / 10;
+			}
+			System.out.print("|"+temp+"|-> SumDigit is : "+iSum+"\n");
+			tnode = tnode.next;
+			iSum = 0;
+		}	
+	}
+
+	public static void main(String[] args)	
+	{
+		LinkedList obj = new LinkedList();
+
+		Scanner sobj = new Scanner(System.in);
+		System.out.println("Enter number of element in Linkedlist :");
+		int no = sobj.nextInt();
+		System.out.println("Created Linked list is :"+no +"->\n"); 
+		
+		for(int i = 1; i <= no; i++)
+		{
+			System.out.println("Enter the element :"+i +"->");
+			int value = sobj.nextInt();
+			obj.InsertLast(value);
+		}
+		System.out.println("\nCreated Linked list is :");
+		obj.printList();
+
+		System.out.println("\nAddition in Ele. Digit is LinkedList :");
+		obj.SumDigit();	
+	}
+}
